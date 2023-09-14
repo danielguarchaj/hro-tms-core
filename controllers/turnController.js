@@ -1,4 +1,8 @@
-import { createTurn, getTurnsOfTheDay } from "../services/turnService";
+import {
+  createTurn,
+  getTurnsOfTheDay,
+  updateTurnStatus,
+} from "../services/turnService";
 
 export const createTurnController = async (req, res) => {
   try {
@@ -17,12 +21,25 @@ export const createTurnController = async (req, res) => {
 export const getTurnsOfTheDayController = async (_req, res) => {
   try {
     const turnQueue = await getTurnsOfTheDay();
-    console.log(turnQueue);
     res.status(200).json(turnQueue);
   } catch (error) {
     console.error(error);
     res
       .status(500)
       .json({ message: "An error occurred", error: error.message });
+  }
+};
+
+export const updateTurnStatusController = async (req, res) => {
+  try {
+    const { newStatus, id } = req.body;
+    const updatedTurn = await updateTurnStatus(id, newStatus);
+    res.status(200).json(updatedTurn);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "An error occurred",
+      error: error.message,
+    });
   }
 };

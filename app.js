@@ -6,8 +6,11 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 var logger = require("morgan");
 
-import { getAreasRoute } from "./routes/areaRoutes";
-import { createTurnRoute, getTurnsOfTheDayRoute } from "./routes/turnRoutes";
+import {
+  createTurnRoute,
+  getTurnsOfTheDayRoute,
+  updateTurnStatusRoute,
+} from "./routes/turnRoutes";
 
 var app = express();
 app.use(bodyParser.json());
@@ -31,7 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(createTurnRoute);
 app.use(getTurnsOfTheDayRoute);
-app.use(getAreasRoute);
+app.use(updateTurnStatusRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
