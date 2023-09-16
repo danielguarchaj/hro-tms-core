@@ -7,6 +7,7 @@ export const createTurn = async (data) => {
       ...data,
       timestamp: new Date().toISOString(),
       status: TURN_STATUS.onQueue,
+      numero: (await getTurnsOfTheDayCount()) + 1,
     });
     await newTurn.save();
     return newTurn;
@@ -15,16 +16,33 @@ export const createTurn = async (data) => {
   }
 };
 
+export const getOneDayRangeTime = async () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return { today, tomorrow };
+};
+
 export const getTurnsOfTheDay = async () => {
   try {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    const { today, tomorrow } = await getOneDayRangeTime();
     const turns = await turnModel.find({
       timestamp: { $gte: today, $lt: tomorrow },
     });
     return turns;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getTurnsOfTheDayCount = async () => {
+  try {
+    const { today, tomorrow } = await getOneDayRangeTime();
+    const turnsCount = await turnModel.count({
+      timestamp: { $gte: today, $lt: tomorrow },
+    });
+    return turnsCount;
   } catch (error) {
     return error;
   }
