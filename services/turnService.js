@@ -52,7 +52,7 @@ export const updateTurnStatus = async (id, newStatus) => {
   try {
     const updatedTurn = await turnModel.findByIdAndUpdate(
       id,
-      { status: newStatus },
+      { status: newStatus, updatedAt: new Date().toISOString() },
       {
         new: true,
       }

@@ -20,6 +20,7 @@ const TurnSchema = new mongoose.Schema({
   areaName: String,
   areaId: Number,
   numero: Number,
+  updatedAt: Date,
 });
 
 export default mongoose.model("Turn", TurnSchema);
