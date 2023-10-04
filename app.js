@@ -12,7 +12,10 @@ import {
   updateTurnStatusRoute,
 } from "./routes/turnRoutes";
 
-import { createAppointmentRoute } from "./routes/appointmentRoutes";
+import {
+  createAppointmentRoute,
+  getAppointmentsRoute,
+} from "./routes/appointmentRoutes";
 
 var app = express();
 app.use(bodyParser.json());
@@ -38,6 +41,7 @@ app.use(createTurnRoute);
 app.use(getTurnsOfTheDayRoute);
 app.use(updateTurnStatusRoute);
 app.use(createAppointmentRoute);
+app.use(getAppointmentsRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
