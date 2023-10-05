@@ -4,6 +4,7 @@ import {
   createTurnController,
   getTurnsOfTheDayController,
   updateTurnStatusController,
+  getTurnsReportController,
 } from "../controllers/turnController";
 
 export const createTurnRoute = router.post("/turns", createTurnController);
@@ -15,4 +16,7 @@ export const updateTurnStatusRoute = router.put(
   "/turns",
   updateTurnStatusController
 );
-
+export const getTurnsReportRoute = router.get(
+  "/turns/report/",
+  getTurnsReportController
+);

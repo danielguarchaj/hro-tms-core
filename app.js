@@ -10,6 +10,7 @@ import {
   createTurnRoute,
   getTurnsOfTheDayRoute,
   updateTurnStatusRoute,
+  getTurnsReportRoute,
 } from "./routes/turnRoutes";
 
 import {
@@ -40,6 +41,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(createTurnRoute);
 app.use(getTurnsOfTheDayRoute);
 app.use(updateTurnStatusRoute);
+app.use(getTurnsReportRoute);
 app.use(createAppointmentRoute);
 app.use(getAppointmentsRoute);
 

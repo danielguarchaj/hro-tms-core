@@ -2,6 +2,7 @@ import {
   createTurn,
   getTurnsOfTheDay,
   updateTurnStatus,
+  getTurnsReport,
 } from "../services/turnService";
 
 export const createTurnController = async (req, res) => {
@@ -41,5 +42,18 @@ export const updateTurnStatusController = async (req, res) => {
       message: "An error occurred",
       error: error.message,
     });
+  }
+};
+
+export const getTurnsReportController = async (req, res) => {
+  try {
+    const { fromDate, toDate } = req.query;
+    const turns = await getTurnsReport(fromDate, toDate);
+    res.status(200).json(turns);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
   }
 };

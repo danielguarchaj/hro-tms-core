@@ -65,3 +65,20 @@ export const updateTurnStatus = async (id, newStatus) => {
     throw new Error(`Error updating user: ${error.message}`);
   }
 };
+
+export const getTurnsReport = async (fromDate, toDate) => {
+  try {
+    const fromDateObj = new Date(fromDate);
+    const toDateObj = new Date(toDate);
+    const records = await turnModel.find({
+      timestamp: {
+        $gte: fromDateObj,
+        $lte: toDateObj,
+      },
+    });
+    return records;
+  } catch (error) {
+    console.error("Error fetching turns report from db:", error);
+    throw error;
+  }
+};
