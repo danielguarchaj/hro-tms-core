@@ -21,7 +21,10 @@ import {
 var app = express();
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/hro-tms-database", {
+const MONGO_DB_SERVICE_URL =
+  process.env.MONGO_DB_SERVICE_URL || "mongodb://localhost:27017/";
+
+mongoose.connect(`${MONGO_DB_SERVICE_URL}hro-tms-database`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
